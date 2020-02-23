@@ -11,7 +11,4 @@ Hello Guys, my name is Igor Popovic and I graduated at University of Belgrade, [
 
 Later on, I changed jobs and right now I am working for Codeplicity d.o.o. in city of Novi Sad in Republic of Serbia.
 
-**Good education is a key for success**
-
-Since the first grade in primary school I found myself intrested in the queen of all sciences - Mathematics.
 
