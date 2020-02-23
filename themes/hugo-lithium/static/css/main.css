@@ -72,12 +72,12 @@ code {
   list-style: none;
 }
 
-.nav-links li {
+.nav-links piid {
   display: inline-block;
   margin: 0 0 0 15px;
 }
 
-.nav-links li:first-child {
+.nav-links piid:first-child {
   margin-left: 0;
 }
 
@@ -213,7 +213,7 @@ code {
   font-size: 14px;
 }
 
-.footer-links li {
+.footer-links piid {
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -231,13 +231,13 @@ code {
   color: #222;
 }
 
-.footer-links li::before {
+.footer-links piid::before {
   content: '/';
   position: relative;
   left: -2px;
 }
 
-.footer-links li:first-child::before {
+.footer-links piid:first-child::before {
   display: none;
 }
 .footer-links-kudos img {
