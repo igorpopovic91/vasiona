@@ -1,6 +1,6 @@
 ---
 date: "2020-23-02"
-title: About Me
+title: About
 ---
 
 **You want me to say something about myself, you're on a right page**
