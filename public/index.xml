@@ -22,12 +22,27 @@
     </item>
     
     <item>
-      <title>About</title>
+      <title>About Me</title>
       <link>/about/</link>
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>This is a &amp;ldquo;hello world&amp;rdquo; with Igor example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+      <description>You want me to say something about myself, you&amp;rsquo;re on a right page
+Hello Guys, my name is Igor Popovic and I graduated at University of Belgrade, \href{http://www.matf.bg.ac.rs/eng/}{Faculty of Mathematics} in 2014.
+Good education is a key for success
+This is a &amp;ldquo;hello world&amp;rdquo; with Igor example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>/about.utf8/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/about.utf8/</guid>
+      <description>You want me to say something about myself, you&amp;rsquo;re on a right page
+Hello Guys, my name is Igor Popovic and I graduated at University of Belgrade, \href{http://www.matf.bg.ac.rs/eng/}{Faculty of Mathematics} in 2014.
+Good education is a key for success
+This is a &amp;ldquo;hello world&amp;rdquo; with Igor example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
     </item>
     
     <item>
