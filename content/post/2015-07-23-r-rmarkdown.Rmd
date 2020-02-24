@@ -1,14 +1,30 @@
 ---
-title: "Hello R Markdown"
-author: "Frida Gomam"
+title: "Map of The Republic of Serbia - Net Earnings 2019"
+author: "Igor Popovic"
 date: 2015-07-23T21:13:14-05:00
 categories: ["R"]
-tags: ["R Markdown", "plot", "regression"]
-logo: favicon.ico
+tags: ["R Markdown", "Serbia", "Earnings", "Map"]
+fig.width: 9
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(readxl)
+library(viridis)
+
+serbia.adm2.shp.df = fortify(data.frame(read_excel("districtsIgor6.xlsx")))
+
+
+ZARADA = data.frame(read_excel("ZaradeSeptembar2019.xlsx"))
+
+serbia.adm2.shp.df = merge(serbia.adm2.shp.df,ZARADA,by="id")
+
+serbia.adm2.shp.df = cbind(serbia.adm2.shp.df, Euro = round(serbia.adm2.shp.df$NETO/117.5962,2))
+
 ```
 
 # R Markdown
@@ -36,3 +52,59 @@ pie(
   init.angle = -50, border = NA
 )
 ```
+
+# Map
+
+You can also embed plots. See Figure \@ref(fig:mapa) for example:
+
+```{r mapa, tidy=FALSE, echo=FALSE, fig.width=8, fig.height=12}
+# Imena opstina za prikaz
+adm.names = aggregate(cbind(long,lat)~group+id_name_vis, serbia.adm2.shp.df, FUN=function(x)mean(range(x)))
+
+
+#------------ MAPA
+
+serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,400,450,500,550,600,650,700,750,800,10000), labels=c("< 250 €","250 - 300 €","300 - 350 €","350 - 400 €","400 - 450 €","450 - 500 €","500 - 550 €","550 - 600 €","600 - 650 €","650 - 700 €","700 - 750 €","750 - 800 €","> 800 €"))
+
+
+mapaSRB=ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
+  geom_path() + geom_polygon(aes(fill=brksZ), color = 'white', size = 0.75) +
+#  scale_fill_gradient(high = "#e34a33", low = "#fee8c8", guide = "colorbar") +
+  scale_fill_viridis(option = "magma", name="Average net earnings", discrete=T, na.value="#969696", guide = guide_legend(
+     keyheight = unit(5, units = "mm"),
+     title.position = 'top',
+     reverse = F
+  ),  direction = -1) +
+  theme(
+    text = element_text(color = "#ffffff", size=15),
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+   # panel.grid.minor = element_line(color = "#ebebe5", size = 0.2),
+    panel.grid.major = element_line(color = "#6A6A6A", size = 0.2),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(fill = "#6A6A6A", color = NA),
+    panel.background = element_rect(fill = "#6A6A6A", color = NA),
+    legend.background = element_rect(fill = "#6A6A6A", color = NA),
+    legend.position=c(0.85, 0.85),
+#    legend.position="none",
+    panel.border = element_blank()) + labs(x = NULL, y = NULL, title = "Republic of Serbia", subtitle = "Net earnings by municipalities and cities,\nSeptember 2019", caption = "Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia")
+#  annotate("text", x=20.484395, y=44.770314, label="* Belgrade", hjust=0, size=5, colour="#373738") +
+#  annotate("text", x=19.844418, y=45.254777, label="* Novi Sad", hjust=0,  size=4, colour="#373738") +
+#  annotate("text", x=21.895615, y=43.326476, label="* Niš", hjust=0, size=4, colour="#373738")
+# family = "Ubuntu Regular", 
+mapaSRB
+
+
+# dodavanje naziva opstina na mapu
+#  + geom_text(adm.names, mapping=aes(long, lat, label = id_name_vis), size=3)
+# text=paste0("Opstina: ",id_name.x,"<br>", "Neto zarada: ", NETO, " din")
+
+
+
+```
+
+
