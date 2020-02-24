@@ -5,6 +5,7 @@ date: 2020-02-24
 categories: ["R"]
 tags: ["R Markdown", "Serbia", "Earnings", "Map"]
 fig.width: 9
+code_folding: "hide"
 ---
 
 
@@ -125,7 +126,7 @@ mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
               legend.background = element_rect(fill = &quot;#6A6A6A&quot;, color = NA),
               legend.position=c(0.85, 0.85),
               panel.border = element_blank()) + 
-        labs(x = NULL, y = NULL, title = &quot;Republic of Serbia&quot;, subtitle = &quot;Net earnings by municipalities and        cities,\nSeptember 2019&quot;, caption = &quot;Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia&quot;)
+        labs(x = NULL, y = NULL, title = &quot;Republic of Serbia&quot;, subtitle = &quot;Net earnings by municipalities and cities,\nSeptember 2019&quot;, caption = &quot;Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia&quot;)
  
 mapaSRB</code></pre>
 <p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa-1.png" width="768" /></p>
