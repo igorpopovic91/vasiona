@@ -293,7 +293,7 @@ code {
 
   .archive-item-link {
     text-overflow: ellipsis;
-    max-width: calc(100% - 120px);
+    max-width: calc(100% - 12px);
     white-space: nowrap;
     overflow: hidden;
   }
