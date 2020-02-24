@@ -1,7 +1,7 @@
 ---
-title: "Map of The Republic of Serbia - Net Earnings 2019"
+title: "Map of The Republic of Serbia - Net Earnings Sep,2019"
 author: "Igor Popovic"
-date: 2015-07-23T21:13:14-05:00
+date: 2020-02-24
 categories: ["R"]
 tags: ["R Markdown", "Serbia", "Earnings", "Map"]
 fig.width: 9
@@ -10,99 +10,117 @@ fig.width: 9
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 library(rgdal)
-library(ggplot2)
-library(dplyr)
+#library(ggplot2)
+#library(dplyr)
 library(plotly)
+#library(readxl)
+#library(viridis)
+
+#serbia.adm2.shp.df = fortify(data.frame(read_excel("districtsIgor6.xlsx")))
+
+
+#ZARADA = data.frame(read_excel("ZaradeSeptembar2019.xlsx"))
+
+#serbia.adm2.shp.df = merge(serbia.adm2.shp.df,ZARADA,by="id")
+
+#serbia.adm2.shp.df = cbind(serbia.adm2.shp.df, Euro = round(serbia.adm2.shp.df$NETO/117.5962,2))
+
+```
+----------------
+
+# Data import
+
+First step for map creation is to have the longitude and latitude information for a country. The longitude and latitude form a dot on a map, but several of them can form, in mathematics called, polygonal line. Process is very simple, we will have in our data frame list of longitudes and latitudes and we will connect the dots with straight line, which mean more dots, the map will look more representative.
+
+You can check more data frames for other countries on this [webpage](https://www.diva-gis.org/gdata)
+
+All the data I have stored to an excel file called districtsSerbia.xlsx and for this step you need package called **readxl**, or you can use any other package from which you can read data from excel (package **xlsx** for example). Name of the file is under quote marks, because the file is in the same folder as the r markdown file. If the path file is different you must insert the full path to the file (for example "C/Users/Desktop/filename.xlsx"). **fortify** function you can find in package for ploting called **ggplot2**.
+
+```{r dataImport, echo=TRUE}
+
 library(readxl)
-library(viridis)
+library(ggplot2)
 
-serbia.adm2.shp.df = fortify(data.frame(read_excel("districtsIgor6.xlsx")))
+serbia.adm2.shp.df = fortify(data.frame(read_excel("districtsSerbia.xlsx")))
 
+head(serbia.adm2.shp.df)
 
-ZARADA = data.frame(read_excel("ZaradeSeptembar2019.xlsx"))
+```
 
-serbia.adm2.shp.df = merge(serbia.adm2.shp.df,ZARADA,by="id")
+This is how the data frame looks like:
+
+```{r dataView, echo=TRUE}
+
+head(serbia.adm2.shp.df)
+
+```
+-----------------
+
+# Data merging
+
+Next thing is to connect the mapping data with earnings data that I have by each municipality. Source of the net earnings you can find on website [Statistical Office of the Republic of Serbia](https://www.stat.gov.rs/en-US/). Merging the data for mapping and net earnings can be done with function **merge**. For this you need package **dplyr**. Data frames are merged by column id which must be identical.
+
+Net earnings have currency serbian dinar, so I transformed them to EUR currency.
+
+```{r dataMerge, echo=TRUE}
+
+library(dplyr)
+
+NetEarn = data.frame(read_excel("NetEarnSep2019.xlsx"))
+
+head(NetEarn)
+
+serbia.adm2.shp.df = merge(serbia.adm2.shp.df,NetEarn,by="id")
 
 serbia.adm2.shp.df = cbind(serbia.adm2.shp.df, Euro = round(serbia.adm2.shp.df$NETO/117.5962,2))
 
+# 1 EUR = 117.5962 and that value is rounded on 2 decimal places
+
+head(serbia.adm2.shp.df)
+
 ```
 
-# R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-fit <- lm(dist ~ speed, data = cars)
-fit
-```
-
-# Including Plots
-
-You can also embed plots. See Figure \@ref(fig:pie) for example:
-
-```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
-par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c('Sky', 'Sunny side of pyramid', 'Shady side of pyramid'),
-  col = c('#0292D8', '#F7EA39', '#C4B632'),
-  init.angle = -50, border = NA
-)
-```
+------------------
 
 # Map
 
-You can also embed plots. See Figure \@ref(fig:mapa) for example:
+And finnaly mapping. Only packages **ggplot2**, **viridis** for coloring the map are used in this process.
 
-```{r mapa, tidy=FALSE, echo=FALSE, fig.width=8, fig.height=12}
-# Imena opstina za prikaz
-adm.names = aggregate(cbind(long,lat)~group+id_name_vis, serbia.adm2.shp.df, FUN=function(x)mean(range(x)))
+```{r mapa, tidy=FALSE, echo=TRUE, fig.width=8, fig.height=12}
 
+library(viridis)
 
-#------------ MAPA
-
+# Defining the ranges of salaries
 serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,400,450,500,550,600,650,700,750,800,10000), labels=c("< 250 €","250 - 300 €","300 - 350 €","350 - 400 €","400 - 450 €","450 - 500 €","500 - 550 €","550 - 600 €","600 - 650 €","650 - 700 €","700 - 750 €","750 - 800 €","> 800 €"))
 
 
-mapaSRB=ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
-  geom_path() + geom_polygon(aes(fill=brksZ), color = 'white', size = 0.75) +
-#  scale_fill_gradient(high = "#e34a33", low = "#fee8c8", guide = "colorbar") +
-  scale_fill_viridis(option = "magma", name="Average net earnings", discrete=T, na.value="#969696", guide = guide_legend(
-     keyheight = unit(5, units = "mm"),
-     title.position = 'top',
-     reverse = F
-  ),  direction = -1) +
-  theme(
-    text = element_text(color = "#ffffff", size=15),
-    axis.line = element_blank(),
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title.x = element_blank(),
-    axis.title.y = element_blank(),
-   # panel.grid.minor = element_line(color = "#ebebe5", size = 0.2),
-    panel.grid.major = element_line(color = "#6A6A6A", size = 0.2),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(fill = "#6A6A6A", color = NA),
-    panel.background = element_rect(fill = "#6A6A6A", color = NA),
-    legend.background = element_rect(fill = "#6A6A6A", color = NA),
-    legend.position=c(0.85, 0.85),
-#    legend.position="none",
-    panel.border = element_blank()) + labs(x = NULL, y = NULL, title = "Republic of Serbia", subtitle = "Net earnings by municipalities and cities,\nSeptember 2019", caption = "Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia")
-#  annotate("text", x=20.484395, y=44.770314, label="* Belgrade", hjust=0, size=5, colour="#373738") +
-#  annotate("text", x=19.844418, y=45.254777, label="* Novi Sad", hjust=0,  size=4, colour="#373738") +
-#  annotate("text", x=21.895615, y=43.326476, label="* Niš", hjust=0, size=4, colour="#373738")
-# family = "Ubuntu Regular", 
+
+mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
+          geom_path() + 
+          geom_polygon(aes(fill=brksZ), color = 'white', size = 0.75) +
+          scale_fill_viridis(option = "magma", name="Average net earnings", discrete=T, na.value="#969696", 
+                             guide = guide_legend(keyheight = unit(5, units = "mm"),
+                                                  title.position = 'top',
+                                                  reverse = F
+                                                  ),  direction = -1) +
+          theme(
+              text = element_text(color = "#ffffff", size=15),
+              axis.line = element_blank(),
+              axis.text.x = element_blank(),
+              axis.text.y = element_blank(),
+              axis.ticks = element_blank(),
+              axis.title.x = element_blank(),
+              axis.title.y = element_blank(),
+              panel.grid.major = element_line(color = "#6A6A6A", size = 0.2),
+              panel.grid.minor = element_blank(),
+              plot.background = element_rect(fill = "#6A6A6A", color = NA),
+              panel.background = element_rect(fill = "#6A6A6A", color = NA),
+              legend.background = element_rect(fill = "#6A6A6A", color = NA),
+              legend.position=c(0.85, 0.85),
+              panel.border = element_blank()) + 
+        labs(x = NULL, y = NULL, title = "Republic of Serbia", subtitle = "Net earnings by municipalities and        cities,\nSeptember 2019", caption = "Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia")
+ 
 mapaSRB
-
-
-# dodavanje naziva opstina na mapu
-#  + geom_text(adm.names, mapping=aes(long, lat, label = id_name_vis), size=3)
-# text=paste0("Opstina: ",id_name.x,"<br>", "Neto zarada: ", NETO, " din")
-
 
 
 ```
