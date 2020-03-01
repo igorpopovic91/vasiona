@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
-  background-color: rgba(244, 124, 4, 0.2);
+  background-color: rgba(195, 195, 195, 0.2);
 }
 
 body {
@@ -38,7 +38,7 @@ code {
 .header {
   padding: 20px 0;
   position: relative;
-  background: #f5f5f5;
+  background: #444444;
   border-bottom: 1px solid #eaeaea;
 }
 
