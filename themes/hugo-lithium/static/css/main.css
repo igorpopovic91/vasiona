@@ -1,9 +1,9 @@
 html,
 body {
-  margin-top: 5px;
+  margin: 0;
   padding: 0;
   position: relative;
-  background-color:rgba(244, 124, 4, 0.2);
+  background-color: rgba(244, 124, 4, 0.2);
 }
 
 body {
