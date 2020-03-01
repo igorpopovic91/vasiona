@@ -39,11 +39,11 @@ code {
   padding: 20px 0;
   position: relative;
   background: #444444;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #ffdcc2;
 }
 
 .nav {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
   text-align: right;
@@ -84,7 +84,7 @@ code {
 
 .nav-links a {
   text-decoration: none;
-  color: #111;
+  color: #fcfcfc;
 }
 
 .nav-links a:hover {
