@@ -86,7 +86,7 @@ head(serbia.adm2.shp.df)
 
 And finnaly mapping. Only packages **ggplot2**, **viridis** for coloring the map are used in this process.
 
-```{r mapa, tidy=FALSE, echo=TRUE}
+```{r mapa, tidy=FALSE, echo=TRUE, fig.width=8, fig.height=12}
 
 library(viridis)
 
