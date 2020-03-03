@@ -141,7 +141,7 @@ code {
 }
 
 .article-content hr {
-  width: 500px;
+  max-width: 1200px;
   margin: 50px auto;
   height: 1px;
   overflow: hidden;
