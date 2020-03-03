@@ -2,7 +2,7 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 200;
-  font-size: 14px;
+  font-size: 10px;
   src: local('Merriweather'), local('Merriweather-Regular'),
        url('../fonts/merriweather-v13-latin-regular.woff2') format('woff2'),
        url('../fonts/merriweather-v13-latin-regular.woff') format('woff');
@@ -11,7 +11,7 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 200;
-  font-size: 14px;
+  font-size: 10px;
   src: local('Lato Regular'), local('Lato-Regular'),
        url('../fonts/lato-v11-latin-regular.woff2') format('woff2'),
        url('../fonts/lato-v11-latin-regular.woff') format('woff');
