@@ -4,7 +4,6 @@ author: "Igor Popovic"
 date: 2020-02-24
 categories: ["R"]
 tags: ["R Markdown", "Serbia", "Earnings", "Map"]
-fig.width: 9
 code_folding: "hide"
 ---
 
@@ -87,7 +86,7 @@ head(serbia.adm2.shp.df)
 
 And finnaly mapping. Only packages **ggplot2**, **viridis** for coloring the map are used in this process.
 
-```{r mapa, tidy=FALSE, echo=TRUE, fig.width=7, fig.height=10}
+```{r mapa, tidy=FALSE, echo=TRUE}
 
 library(viridis)
 
