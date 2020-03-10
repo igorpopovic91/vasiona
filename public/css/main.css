@@ -28,6 +28,98 @@ a {
 }
 
 
+.code{
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 13px;
+    background: #FFF;
+    border: none;
+}
+ 
+div.code{
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    margin: 10px 1px;
+    padding: .5em 1em;
+    box-shadow: 2px 2px 4px -4px rgba(0,0,0,.25) inset;
+    overflow: auto;
+    position: relative;
+ 
+    counter-reset: linenumber;
+}
+div.code p,
+div.code pre{
+    margin: 0;
+    padding: 0;
+}
+div.code p{
+    white-space: nowrap;
+    overflow-x: auto;
+}
+div.code span.line{
+    counter-increment: linenumber;
+    display: inline-block;
+    min-width: 100%;
+    padding-left: 32px;
+}
+div.code span.line:hover{  background-color: rgba(0,0,0,.05); }
+div.code span.line::before{
+    content: counter(linenumber);
+    position: absolute;
+    left: 10px;
+    width: 2.25em;
+    text-align: right;
+    border-right: 2px solid #CCC;
+    padding-right: 3px;
+    margin-right: 6px;
+    background: #FFF;
+}
+ 
+span.code{
+    border: 1px solid #EEE;
+    border-radius: 2em;
+    background: none;
+    padding: 0 .4em;
+    font-size: 85%;
+}
+ 
+.code span.comment{  color: #008000; }
+.code span.doccomment{  color: #008060; }
+.code span.value,
+.code span.literal,
+.code span.digit{  color: #000099; }
+.code span.invalid{
+    color: #F00;
+    font-weight: bold;
+}
+.code span.attribute{  color: #0060FF; }
+.code span.definition,
+.code span.statement{  color: #1518FF; }
+.code span.type{  color: #0080AA; }
+.code span.string,
+.code span.char{  color: #A31515; }
+.code span.directive{  color: #02B902; }
+ 
+.code.css span.idSelector{  color: #996300; }
+.code.css span.browserDefinition{  color: #2528FF; }
+ 
+.code pre{
+    border: none;
+    background: none;
+}
+.code a{
+    color: inherit;
+    border-bottom: 1px dotted;
+    display: inline-block;
+    height: 1.28em;
+}
+.code a:hover{
+    text-decoration: none;
+    color: inherit;
+    border-bottom: none;
+}
+.code a.newpage,
+.code a.newpage:hover{  color: #F00; }
+/*
 code {
   background-color: rgba(211, 211, 211, 0.2);
   background: #292929;
@@ -42,6 +134,7 @@ code {
   .w {
     color: white;
   }
+*/  
 
 .wrapper {
   overflow: hidden;
