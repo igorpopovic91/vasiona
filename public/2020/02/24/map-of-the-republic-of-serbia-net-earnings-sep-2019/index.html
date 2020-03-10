@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">4 min read</span>
+    <span class="article-duration">5 min read</span>
     
 
     <h1 class="article-title">Map of The Republic of Serbia - Net Earnings Sep, 2019</h1>
@@ -86,15 +86,7 @@ library(readxl)
 library(ggplot2)
 
 serbia.adm2.shp.df = fortify(data.frame(read_excel(&quot;districtsSerbia.xlsx&quot;)))
-
-head(serbia.adm2.shp.df)
-##       long      lat order  hole piece id     id_name id_name_vis group
-## 1 20.38908 44.29429     1 FALSE     1  0 Aranđelovac Aranđelovac   0.1
-## 2 20.38950 44.29555     2 FALSE     1  0 Aranđelovac Aranđelovac   0.1
-## 3 20.39240 44.29978     3 FALSE     1  0 Aranđelovac Aranđelovac   0.1
-## 4 20.39747 44.30449     4 FALSE     1  0 Aranđelovac Aranđelovac   0.1
-## 5 20.39903 44.30624     5 FALSE     1  0 Aranđelovac Aranđelovac   0.1
-## 6 20.40010 44.30808     6 FALSE     1  0 Aranđelovac Aranđelovac   0.1</code></pre>
+</code></pre>
 <p>This is how the data frame looks like:</p>
 <pre class="r"><code>
 head(serbia.adm2.shp.df)
@@ -174,6 +166,67 @@ serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,
 
 mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
           geom_path() + 
+          geom_polygon(color = &#39;white&#39;, size = 0.75)
+
+mapaSRB</code></pre>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa-1.png" width="672" /></p>
+<p>Changing the background and removing the coordinates.</p>
+<pre class="r"><code>
+mapaSRB + theme(text = element_text(color = &quot;#ffffff&quot;, size=15),
+                axis.line = element_blank(),
+                axis.text.x = element_blank(),
+                axis.text.y = element_blank(),
+                axis.ticks = element_blank(),
+                axis.title.x = element_blank(),
+                axis.title.y = element_blank(),
+                panel.grid.major = element_line(color = &quot;#6A6A6A&quot;, size = 0.2),
+                panel.grid.minor = element_blank(),
+                plot.background = element_rect(fill = &quot;#6A6A6A&quot;, color = NA),
+                panel.background = element_rect(fill = &quot;#6A6A6A&quot;, color = NA),
+                legend.background = element_rect(fill = &quot;#6A6A6A&quot;, color = NA),
+                legend.position=c(0.85, 0.85),
+                panel.border = element_blank())</code></pre>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa2-1.png" width="672" /></p>
+<p>And adding some colors with <strong>viridis</strong> package from R depending on the size of average salary.</p>
+<pre class="r"><code>
+library(viridis)
+
+# Defining the ranges of salaries
+serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,400,450,500,550,600,650,700,750,800,10000), 
+          labels=c(&quot;&lt; 250 €&quot;,&quot;250 - 300 €&quot;,&quot;300 - 350 €&quot;,&quot;350 - 400 €&quot;,&quot;400 - 450 €&quot;,
+                   &quot;450 - 500 €&quot;,&quot;500 - 550 €&quot;,&quot;550 - 600 €&quot;,&quot;600 - 650 €&quot;,&quot;650 - 700 €&quot;,
+                   &quot;700 - 750 €&quot;,&quot;750 - 800 €&quot;,&quot;&gt; 800 €&quot;))
+
+
+
+mapaSRB + geom_polygon(aes(fill=brksZ), color = &#39;white&#39;, size = 0.75) +
+          scale_fill_viridis(option = &quot;magma&quot;, name=&quot;Average net earnings&quot;, 
+                  discrete=T, na.value=&quot;#969696&quot;, 
+                  guide = guide_legend(keyheight = unit(5, units = &quot;mm&quot;),
+                  title.position = &#39;top&#39;,
+                  reverse = F),  
+                  direction = -1)</code></pre>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa3-1.png" width="672" /></p>
+<p>Adding the title, subtitle and caption.</p>
+<pre class="r"><code>
+mapaSRB + labs(x = NULL, y = NULL, title = &quot;Republic of Serbia&quot;, 
+          subtitle = &quot;Net earnings by municipalities and cities,\nSeptember 2019&quot;, 
+          caption = &quot;Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia&quot;)</code></pre>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa4-1.png" width="672" /></p>
+<p>And a final map.</p>
+<pre class="r"><code>
+library(viridis)
+
+# Defining the ranges of salaries
+serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,400,450,500,550,600,650,700,750,800,10000), 
+          labels=c(&quot;&lt; 250 €&quot;,&quot;250 - 300 €&quot;,&quot;300 - 350 €&quot;,&quot;350 - 400 €&quot;,&quot;400 - 450 €&quot;,
+                   &quot;450 - 500 €&quot;,&quot;500 - 550 €&quot;,&quot;550 - 600 €&quot;,&quot;600 - 650 €&quot;,&quot;650 - 700 €&quot;,
+                   &quot;700 - 750 €&quot;,&quot;750 - 800 €&quot;,&quot;&gt; 800 €&quot;))
+
+
+
+mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
+          geom_path() + 
           geom_polygon(aes(fill=brksZ), color = &#39;white&#39;, size = 0.75) +
           scale_fill_viridis(option = &quot;magma&quot;, name=&quot;Average net earnings&quot;, 
                   discrete=T, na.value=&quot;#969696&quot;, 
@@ -201,7 +254,7 @@ mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
               caption = &quot;Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia&quot;)
  
 mapaSRB</code></pre>
-<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa-1.png" width="768" /></p>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa5-1.png" width="768" /></p>
 </div>
 
     </div>

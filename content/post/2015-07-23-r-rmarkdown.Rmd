@@ -43,7 +43,6 @@ library(ggplot2)
 
 serbia.adm2.shp.df = fortify(data.frame(read_excel("districtsSerbia.xlsx")))
 
-head(serbia.adm2.shp.df)
 
 ```
 
@@ -87,7 +86,90 @@ head(serbia.adm2.shp.df)
 
 And finnaly mapping. Only packages **ggplot2**, **viridis** for coloring the map are used in this process.
 
-```{r mapa, tidy=FALSE, echo=TRUE, fig.width=8, fig.height=12}
+```{r mapa, tidy=FALSE, echo=TRUE}
+
+library(viridis)
+
+# Defining the ranges of salaries
+serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,400,450,500,550,600,650,700,750,800,10000), 
+          labels=c("< 250 €","250 - 300 €","300 - 350 €","350 - 400 €","400 - 450 €",
+                   "450 - 500 €","500 - 550 €","550 - 600 €","600 - 650 €","650 - 700 €",
+                   "700 - 750 €","750 - 800 €","> 800 €"))
+
+
+
+mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
+          geom_path() + 
+          geom_polygon(color = 'white', size = 0.75)
+
+mapaSRB
+
+```
+
+Changing the background and removing the coordinates.
+
+
+
+
+```{r mapa2, tidy=FALSE, echo=TRUE}
+
+mapaSRB + theme(text = element_text(color = "#ffffff", size=15),
+                axis.line = element_blank(),
+                axis.text.x = element_blank(),
+                axis.text.y = element_blank(),
+                axis.ticks = element_blank(),
+                axis.title.x = element_blank(),
+                axis.title.y = element_blank(),
+                panel.grid.major = element_line(color = "#6A6A6A", size = 0.2),
+                panel.grid.minor = element_blank(),
+                plot.background = element_rect(fill = "#6A6A6A", color = NA),
+                panel.background = element_rect(fill = "#6A6A6A", color = NA),
+                legend.background = element_rect(fill = "#6A6A6A", color = NA),
+                legend.position=c(0.85, 0.85),
+                panel.border = element_blank())
+
+
+```
+
+And adding some colors with **viridis** package from R depending on the size of average salary.
+
+```{r mapa3, tidy=FALSE, echo=TRUE}
+
+library(viridis)
+
+# Defining the ranges of salaries
+serbia.adm2.shp.df$brksZ = cut(serbia.adm2.shp.df$Euro, breaks=c(-1,250,300,350,400,450,500,550,600,650,700,750,800,10000), 
+          labels=c("< 250 €","250 - 300 €","300 - 350 €","350 - 400 €","400 - 450 €",
+                   "450 - 500 €","500 - 550 €","550 - 600 €","600 - 650 €","650 - 700 €",
+                   "700 - 750 €","750 - 800 €","> 800 €"))
+
+
+
+mapaSRB + geom_polygon(aes(fill=brksZ), color = 'white', size = 0.75) +
+          scale_fill_viridis(option = "magma", name="Average net earnings", 
+                  discrete=T, na.value="#969696", 
+                  guide = guide_legend(keyheight = unit(5, units = "mm"),
+                  title.position = 'top',
+                  reverse = F),  
+                  direction = -1)
+
+
+```
+
+Adding the title, subtitle and caption.
+
+```{r mapa4, tidy=FALSE, echo=TRUE}
+
+mapaSRB + labs(x = NULL, y = NULL, title = "Republic of Serbia", 
+          subtitle = "Net earnings by municipalities and cities,\nSeptember 2019", 
+          caption = "Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia")
+ 
+
+```
+
+And a final map.
+
+```{r mapa5, tidy=FALSE, echo=TRUE, fig.width=8, fig.height=12}
 
 library(viridis)
 
@@ -131,3 +213,4 @@ mapaSRB
 
 
 ```
+
