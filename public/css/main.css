@@ -13,19 +13,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
 }
-
+img,
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6, {
   color: #222;
 }
 
 a {
   outline: none;
 }
+
 
 
 .code{
@@ -136,6 +137,11 @@ code {
   }
 */  
 
+.img {
+  width: 100%;
+  height: 120%;
+}
+
 .wrapper {
   overflow: hidden;
   position: relative;
@@ -164,6 +170,8 @@ code {
 .nav-logo:hover {
   transform: scale(1.1);
 }
+
+
 
 .nav-logo img {
   display: block;
