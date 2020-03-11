@@ -169,7 +169,7 @@ mapaSRB = ggplot(data=serbia.adm2.shp.df, aes(x=long, y=lat, group=group)) +
           geom_polygon(color = &#39;white&#39;, size = 0.75)
 
 mapaSRB</code></pre>
-<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa-1.png" width="576" /></p>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa-1.png" width="288" /></p>
 <p>Changing the background and removing the coordinates.</p>
 <pre class="r"><code>
 mapaSRB + theme(text = element_text(color = &quot;#ffffff&quot;, size=15),
@@ -186,7 +186,7 @@ mapaSRB + theme(text = element_text(color = &quot;#ffffff&quot;, size=15),
                 legend.background = element_rect(fill = &quot;#6A6A6A&quot;, color = NA),
                 legend.position=c(0.85, 0.85),
                 panel.border = element_blank())</code></pre>
-<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa2-1.png" width="576" /></p>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa2-1.png" width="288" /></p>
 <p>And adding some colors with <strong>viridis</strong> package from R depending on the size of average salary.</p>
 <pre class="r"><code>
 library(viridis)
@@ -206,13 +206,13 @@ mapaSRB + geom_polygon(aes(fill=brksZ), color = &#39;white&#39;, size = 0.75) +
                   title.position = &#39;top&#39;,
                   reverse = F),  
                   direction = -1)</code></pre>
-<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa3-1.png" width="576" /></p>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa3-1.png" width="480" /></p>
 <p>Adding the title, subtitle and caption.</p>
 <pre class="r"><code>
 mapaSRB + labs(x = NULL, y = NULL, title = &quot;Republic of Serbia&quot;, 
           subtitle = &quot;Net earnings by municipalities and cities,\nSeptember 2019&quot;, 
           caption = &quot;Author: Igor Popovic,\n Source: Statistical Office of the Republic of Serbia&quot;)</code></pre>
-<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa4-1.png" width="576" /></p>
+<p><img src="/post/2015-07-23-r-rmarkdown_files/figure-html/mapa4-1.png" width="288" /></p>
 <p>And a final map.</p>
 <pre class="r"><code>
 library(viridis)

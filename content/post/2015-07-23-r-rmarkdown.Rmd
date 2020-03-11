@@ -86,7 +86,7 @@ head(serbia.adm2.shp.df)
 
 And finnaly mapping. Only packages **ggplot2**, **viridis** for coloring the map are used in this process.
 
-```{r mapa, tidy=FALSE, echo=TRUE,fig.width=6, fig.height=9}
+```{r mapa, tidy=FALSE, echo=TRUE,fig.width=3, fig.height=5}
 
 library(viridis)
 
@@ -111,7 +111,7 @@ Changing the background and removing the coordinates.
 
 
 
-```{r mapa2, tidy=FALSE, echo=TRUE,fig.width=6, fig.height=9}
+```{r mapa2, tidy=FALSE, echo=TRUE,fig.width=3, fig.height=5}
 
 mapaSRB + theme(text = element_text(color = "#ffffff", size=15),
                 axis.line = element_blank(),
@@ -133,7 +133,7 @@ mapaSRB + theme(text = element_text(color = "#ffffff", size=15),
 
 And adding some colors with **viridis** package from R depending on the size of average salary.
 
-```{r mapa3, tidy=FALSE, echo=TRUE,fig.width=6, fig.height=9}
+```{r mapa3, tidy=FALSE, echo=TRUE,fig.width=5, fig.height=5}
 
 library(viridis)
 
@@ -158,7 +158,7 @@ mapaSRB + geom_polygon(aes(fill=brksZ), color = 'white', size = 0.75) +
 
 Adding the title, subtitle and caption.
 
-```{r mapa4, tidy=FALSE, echo=TRUE, fig.width=6, fig.height=9}
+```{r mapa4, tidy=FALSE, echo=TRUE, fig.width=3, fig.height=5}
 
 mapaSRB + labs(x = NULL, y = NULL, title = "Republic of Serbia", 
           subtitle = "Net earnings by municipalities and cities,\nSeptember 2019", 
