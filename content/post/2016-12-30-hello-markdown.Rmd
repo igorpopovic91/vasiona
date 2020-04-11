@@ -1,0 +1,58 @@
+---
+title: "RSD to EUR exchange rates throug time"
+author: "Igor Popovic"
+date: 2020-04-11
+categories: ["R"]
+tags: ["R Markdown", "Serbia", "Earnings", "Map"]
+code_folding: "hide"
+---
+
+```{r setup, include=FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("readxl")
+library("dygraphs")
+library("xts")
+REPORT = read_excel("/Users/igorpopovic/Downloads/KURS.xlsx")
+#Subaffiliates = read_excel("/Users/igorpopovic/R reports/Table12082019Subaff.xlsx")
+#DataForPrediction = read_excel("/Users/igorpopovic/R reports/Table16072019Subaff.xlsx")
+```
+
+### Exchange rates
+
+```{r Kurs, echo=TRUE, warning = FALSE}
+Dts = seq(as.Date("2003/1/1"), as.Date("2019/12/1"), "days")
+
+ExchangeRate = xts(x = REPORT$`Excange _rate`, Dts)
+
+dygraph(ExchangeRate, main = "RSD to EUR, 2003 - 2019", ylab = "RSD")%>%
+  dySeries("V1", label = "1 EUR = ", color = "#4169e1") %>%
+  dyRangeSelector()%>%
+  dyLegend(show = "always", width = 250)
+
+```
+
+### Exchange variations by each day
+
+```{r Promena, echo=TRUE}
+
+Dts2 = seq(as.Date("2003/1/1"), as.Date("2019/11/30"), "days")
+
+ChangebyDay = rep(0,length(REPORT$`Excange _rate`)-1)
+i = 1
+
+for (i in 2: length(ChangebyDay)){
+  ChangebyDay[i] = REPORT[i,3] - REPORT[i-1,3]
+  i = i+1
+}
+
+ChangeTotal = xts(x = as.numeric(ChangebyDay), Dts2)
+
+dygraph(ChangeTotal, main = "Every day variation of exchange rates, 2003 - 2019", ylab = "RSD")%>%
+  dySeries("V1", label = "Change in RSD: ", color = "#858b9d") %>%
+  dyRangeSelector()%>%
+  dyLegend(show = "always", width = 250)
+
+```
+
+
+
