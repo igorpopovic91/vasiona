@@ -354,7 +354,7 @@ img {
 .footer-links li:first-child::before {
   display: none;
 }
-.footer-links-kudos img {
+.footer-links-kudos {
   position: relative;
   top: 6px;
   margin-left: 2px;
