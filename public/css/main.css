@@ -141,6 +141,11 @@ img {
   height: 120%;
 }
 
+img1 {
+  width: 20px;
+  height: 20px;
+}
+
 .wrapper {
   overflow: hidden;
   position: relative;
@@ -170,12 +175,8 @@ img {
   transform: scale(1.1);
 }
 
-/* Change background color of buttons on hover */
-.tablink:hover {
-  background-color: #777;
-}
 
-.nav-logo img {
+.nav-logo img1 {
   display: block;
   max-height: 40px;
   width: auto;
