@@ -176,7 +176,7 @@ img1 {
 }
 
 
-.nav-logo img1 {
+.nav-logo {
   display: block;
   max-height: 40px;
   width: auto;
@@ -358,7 +358,7 @@ img1 {
 .footer-links li:first-child::before {
   display: none;
 }
-.footer-links-kudos img {
+.footer-links-kudos img1 {
   position: relative;
   top: 6px;
   margin-left: 2px;
