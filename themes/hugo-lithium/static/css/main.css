@@ -141,10 +141,6 @@ img {
   height: 120%;
 }
 
-img1 {
-  width: 20px;
-  height: 20px;
-}
 
 .wrapper {
   overflow: hidden;
@@ -358,7 +354,7 @@ img1 {
 .footer-links li:first-child::before {
   display: none;
 }
-.footer-links-kudos img1 {
+.footer-links-kudos img {
   position: relative;
   top: 6px;
   margin-left: 2px;
