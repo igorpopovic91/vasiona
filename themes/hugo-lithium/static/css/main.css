@@ -360,7 +360,7 @@ img {
   margin-left: 2px;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .header {
     padding: 25px 0;
   }
