@@ -137,7 +137,7 @@ code {
 */  
 
 img {
-  width: 100%;
+  width: 30%;
   height: 120%;
 }
 
@@ -369,7 +369,7 @@ img {
     margin-top: -13px;
   }
 
-  .nav-logo img1 {
+  .nav-logo img {
     max-height: 50px;
   }
 

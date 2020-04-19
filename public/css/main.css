@@ -137,14 +137,10 @@ code {
 */  
 
 img {
-  width: 100%;
+  width: 30%;
   height: 120%;
 }
 
-img1 {
-  width: 20px;
-  height: 20px;
-}
 
 .wrapper {
   overflow: hidden;
@@ -159,7 +155,7 @@ img1 {
 }
 
 .nav {
-  max-width: 1200px;
+  max-width: 120px;
   margin: 0 auto;
   padding: 0 15px;
   text-align: right;
@@ -176,10 +172,10 @@ img1 {
 }
 
 
-.nav-logo img1 {
+.nav-logo {
   display: block;
   max-height: 40px;
-  width: auto;
+  width: 120px;
   border-radius: 50%;
 }
 
@@ -358,13 +354,13 @@ img1 {
 .footer-links li:first-child::before {
   display: none;
 }
-.footer-links-kudos img {
+.footer-links-kudos {
   position: relative;
   top: 6px;
   margin-left: 2px;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .header {
     padding: 25px 0;
   }
