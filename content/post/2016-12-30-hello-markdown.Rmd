@@ -26,7 +26,6 @@ ExchangeRate = xts(x = REPORT$`Excange _rate`, Dts)
 
 dygraph(ExchangeRate, main = "RSD to EUR, 2003 - 2019", ylab = "RSD")%>%
   dySeries("V1", label = "1 EUR = ", color = "#4169e1") %>%
-  dyRangeSelector()%>%
   dyLegend(show = "always", width = 250)
 
 ```
@@ -49,7 +48,6 @@ ChangeTotal = xts(x = as.numeric(ChangebyDay), Dts2)
 
 dygraph(ChangeTotal, main = "Every day variation of exchange rates, 2003 - 2019", ylab = "RSD")%>%
   dySeries("V1", label = "Change in RSD: ", color = "#858b9d") %>%
-  dyRangeSelector()%>%
   dyLegend(show = "always", width = 250)
 
 ```
